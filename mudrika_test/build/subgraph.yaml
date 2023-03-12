@@ -1,0 +1,30 @@
+specVersion: 0.0.5
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Mudrika
+    network: mumbai
+    source:
+      address: "0x5050D7365B907c33e41EC5cd634a974DF6099dcb"
+      abi: Mudrika
+      startBlock: 0
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - fundDeposited
+        - fundTransferred
+        - requestAdded
+      abis:
+        - name: Mudrika
+          file: Mudrika/abis/Mudrika.json
+      eventHandlers:
+        - event: fundDeposited(uint256,address)
+          handler: handlefundDeposited
+        - event: fundTransferred(uint256,uint256,address)
+          handler: handlefundTransferred
+        - event: requestAdded(uint256)
+          handler: handlerequestAdded
+      file: Mudrika/Mudrika.wasm
